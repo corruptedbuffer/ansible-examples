@@ -1,3 +1,6 @@
 ---
+- name: Remove previous site files
+  file: path=/var/www/html/site state=absent
+
 - name: Copy the code from repository
-  git: repo={{ repository }} version={{ webapp_version }} dest=/var/www/html/
+  git: repo={{ repository }} version={{ webapp_version }} force=yes dest=/var/www/html/site

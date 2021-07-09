@@ -2,24 +2,22 @@
 # This role installs httpd
 
 - name: Install http
-  yum:
+  apt:
     name: "{{ item }}"
     state: present
   with_items:
-   - httpd
+   - apache2
    - php
    - php-mysql
    - git
 
-- name: Configure SELinux to allow httpd to connect to remote database
-  seboolean:
-    name: httpd_can_network_connect_db
-    state: true
-    persistent: yes
-  when: sestatus.rc != 0
-
-- name: http service state
-  service:
-    name: httpd
-    state: started
-    enabled: yes
+# - name: Configure SELinux to allow httpd to connect to remote database
+#   seboolean:
+#     name: httpd_can_network_connect_db
+#     state: true
+#     persistent: yes
+- name: Check if Apache is accessible
+  uri:
+    url: http://localhost
+    method: GET
+    status_code: 200

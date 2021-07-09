@@ -1,12 +1,12 @@
 [webservers]
-web1
-web2
+spock.corruptedbuffer.com
+mini.corruptedbuffer.com
 
 [dbservers]
-db1
+guardian.corruptedbuffer.com
 
 [lbservers]
-lb1
+scotty.corruptedbuffer.com
 
 [monitoring]
-nagios
+scotty.corruptedbuffer.com

@@ -3,24 +3,26 @@
 
 # Apply common configuration to all hosts
 - hosts: all
-
+  gather_facts: yes
   roles:
   - common
 
 # Configure and deploy database servers.
-- hosts: dbservers
+# - hosts: dbservers
 
-  roles:
-  - db
+#   roles:
+#   - db
 
-  tags:
-  - db
+#   tags:
+#   - db
 
 # Configure and deploy the web servers. Note that we include two roles here,
 # the 'base-apache' role which simply sets up Apache, and 'web' which includes
 # our example web application.
 - hosts: webservers
-
+  become: yes
+  become_user: root
+  become_method: sudo
   roles:
   - base-apache
   - web
@@ -30,7 +32,9 @@
 
 # Configure and deploy the load balancer(s).
 - hosts: lbservers
-
+  become: yes
+  become_user: root
+  become_method: sudo
   roles:
   - haproxy
 
@@ -38,11 +42,11 @@
   - lb
 
 # Configure and deploy the Nagios monitoring node(s).
-- hosts: monitoring
+# - hosts: monitoring
 
-  roles:
-  - base-apache
-  - nagios
+#   roles:
+#   - base-apache
+#   - nagios
 
-  tags:
-  - monitoring
+#   tags:
+#   - monitoring
